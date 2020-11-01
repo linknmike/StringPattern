@@ -28,4 +28,26 @@ public class Main {
         }
         return out.toString();
     }
+
+    List<Integer> Driver(double[] L, double[] R) {
+        doubleBubbleSort(L, R);
+        System.out.println(Arrays.toString(L));
+        System.out.println(Arrays.toString(R));
+
+        List<Integer> excl = new ArrayList<>();
+        List<Integer> incl = new ArrayList<>();
+
+        double largestRightEndpoint = -Double.MAX_VALUE;
+        int largestRightIndex = 0;
+        if (L[1] == L[0]) {
+            for (int i = 0; i < L.length; i++) {
+                if (L[i] == L[0] && R[i] > largestRightEndpoint) {
+                    largestRightEndpoint = L[i];
+                    largestRightIndex = i;
+                }
+            }
+        }
+        incl.add(largestRightIndex);
+        return smallestCover(L, R, excl, incl, largestRightIndex);
+    }
 }
