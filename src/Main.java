@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 public class Main {
 
@@ -81,4 +83,22 @@ public class Main {
             }
         }
     }
+
+    List<Integer> smallestCover(double[] L, double[] R, List<Integer> excl, List<Integer> incl, int mostRecent) {
+        double largestRightEndpoint = -Double.MAX_VALUE;
+        int largestRightIndex = -1;
+        for (int i = 0; i < L.length; i++) {
+            if (L[i] <= R[mostRecent] && !incl.contains(i) && R[i] > largestRightEndpoint && R[i] > R[mostRecent]) {
+                largestRightEndpoint = R[i];
+                largestRightIndex = i;
+
+            }
+        }
+        if (largestRightIndex == -1) {
+            return incl;
+        }
+        incl.add(largestRightIndex);
+        return smallestCover(L, R, excl, incl, largestRightIndex);
+    }
+
 }
