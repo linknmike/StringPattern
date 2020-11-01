@@ -41,4 +41,42 @@ public class Main {
             System.out.println("L: " + L[i] + "   R: " + R[i]);
         }
     }
+
+    List<Integer> Driver(double[] L, double[] R) {
+        doubleBubbleSort(L, R);
+        System.out.println(Arrays.toString(L));
+        System.out.println(Arrays.toString(R));
+
+        List<Integer> excl = new ArrayList<>();
+        List<Integer> incl = new ArrayList<>();
+
+        double largestRightEndpoint = -Double.MAX_VALUE;
+        int largestRightIndex = 0;
+        if (L[1] == L[0]) {
+            for (int i = 0; i < L.length; i++) {
+                if (L[i] == L[0] && R[i] > largestRightEndpoint) {
+                    largestRightEndpoint = L[i];
+                    largestRightIndex = i;
+                }
+            }
+        }
+        incl.add(largestRightIndex);
+        return smallestCover(L, R, excl, incl, largestRightIndex);
+    }
+    void doubleBubbleSort(double[] arr1, double[] arr2) {
+        int n = arr1.length;
+        for (int i = 0; i < n-1; i++) {
+            for(int j = 0; j < n - i - 1; j++) {
+                if(arr1[j] > arr1[j + 1]) {
+                    double temp1 = arr1[j];
+                    double temp2 = arr2[j];
+                    arr1[j] = arr1[j + 1];
+                    arr2[j] = arr2[j + 1];
+                    arr2[j + 1] = temp2;
+                    arr1[j + 1] = temp1;
+
+                }
+            }
+        }
+    }
 }
